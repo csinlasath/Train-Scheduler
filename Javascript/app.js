@@ -27,7 +27,8 @@ $(document).ready(function() {
     newTrainRow.append("<td>" + snapshot.val().trainFrequency + "</td>");
     newTrainRow.append("<td>" + trainTimeArrival + "</td>");
     newTrainRow.append("<td>" + minutesUntilTrain + "</td>");
-    $("#train-table-body").prepend(newTrainRow);
+    // newTrainRow.append("<button id='delete-button' class='btn btn-danger'>Delete</button>");
+    $("#train-table-body").append(newTrainRow);
 });
 
   $(document).on("click", "#submit-button", function(event) {
@@ -46,6 +47,11 @@ $(document).ready(function() {
         trainAdded: firebase.database.ServerValue.TIMESTAMP
     });
 
+    $("#train-name-field").val("");
+    $("#destination-name-field").val("");
+    $("#train-time-field").val("");
+    $("#frequency-field").val("");
+
     var trainTimeConverted = moment(trainTimeField, "hh:mm").subtract(1, "years");
     var differenceInTime = moment().diff(moment(trainTimeConverted), "minutes");
     var remainderTime = differenceInTime % frequencyField;
@@ -58,11 +64,10 @@ $(document).ready(function() {
     newTrainRow.append("<td>" + snapshot.val().trainFrequency + "</td>");
     newTrainRow.append("<td>" + trainTimeArrival + "</td>");
     newTrainRow.append("<td>" + minutesUntilTrain + "</td>");
+    // newTrainRow.append("<button id='delete-button' class='btn btn-danger'>Delete</button>");
     $("#train-table-body").append(newTrainRow);
-    
-    $("#train-name-field").val("");
-    $("#destination-name-field").val("");
-    $("#train-time-field").val("");
-    $("#frequency-field").val("");
   });
+//   $(document).on("click", "#delete-button", function() {
+//       $(this).closest("tr").remove();
+//   });
 });
